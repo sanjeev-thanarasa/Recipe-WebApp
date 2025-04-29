@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import Loader from "./components/Loader/Loader";
+import { getAllRecipes } from "./utils/api";
+import { useEffect, useState } from "react";
+import styles from "./components/Loader/Loader.module.scss";
+import Header from "./components/Header/Header.js";
+import RecipeList from "./components/RecipeList/RecipeList.js";
 
 function App() {
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRecipesData = async () => {
+      try {
+        const response = await getAllRecipes();
+        setRecipes(response);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
+    };
+    fetchRecipesData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.App}>
+      <Header title={"Recipe App"} />
+      {loading ? (
+        <Loader name={"Recipe is Loading..."} />
+      ) : (
+        <RecipeList recipes={recipes} />
+      )}
     </div>
   );
 }
