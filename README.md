@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+Vercel Hosted Web URL - https://recipe-web-app-sandy.vercel.app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
